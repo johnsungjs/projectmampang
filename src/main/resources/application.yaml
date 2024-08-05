@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: waba-dartmedia
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /
+
+waba:
+  dartmedia:
+    uriSmsParams: http://doctrack.bankmega.com/doctrack/4539885790287987
+    uriSendTemplate: https://inbox.pesanku.biz/api/broadcast/bank-mega
+    defaultToken: b424d5f8_2f20_47c1_b723_03c698fab695
+    allowedIps: 0.0.0.0
+    timeout: 5
+
+# proxy:
+#   enabled: true
+#   host: 10.14.1.150
+#   port: 3128
+
+proxy:
+  enabled: true
+  host: 10.14.1.150
+  port: 3128
