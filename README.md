@@ -65,7 +65,64 @@ public class PersonRequest {
 
 ##### PersonController.java
 ```java
-COPY FULL CODE HERE
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import com.testing.test_mampang.model.Person;
+import com.testing.test_mampang.request.PersonRequest;
+
+
+import mampang.validation.annotation.JsAuthorization.JsAuthorization;
+import mampang.validation.annotation.JsRequestBodyValidation.JsRequestBodyValidation;
+import mampang.validation.component.JsResponseGenerator;
+import mampang.validation.dto.MampangApiResponse;
+
+
+@RestController
+@RequestMapping("/person")
+public class PersonController {
+
+
+   @Autowired
+   private JsResponseGenerator jsr;
+
+
+   @GetMapping("/get")
+   public ResponseEntity<MampangApiResponse> getPerson() {
+       Person result = new Person("DummyPerson", "pingpong");
+       return jsr.success(result, "00", "SUCCESS GET PERSON");
+   }
+
+
+   @GetMapping("/get/auth")
+   @JsAuthorization
+   public ResponseEntity<MampangApiResponse> getPersonAuth() {
+       Person result = new Person("DummyPerson", "pingpong");
+       return jsr.success(result, "00", "SUCCESS GET PERSON");
+   }
+
+
+   @PostMapping("/post")
+   @JsRequestBodyValidation
+   public ResponseEntity<MampangApiResponse> postPerson(@RequestBody PersonRequest request) {
+       return jsr.success(request, "00", "SUCCESS GET PERSON");
+   }
+
+
+   @PostMapping("/post/auth")
+   @JsRequestBodyValidation
+   @JsAuthorization
+   public ResponseEntity<MampangApiResponse> getTestAuth(@RequestBody PersonRequest request) {
+       return jsr.success(request, "00", "SUCCESS GET PERSON");
+   }
+}
+
 ```
 
 ## In Depth Explanation
