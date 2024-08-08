@@ -12,8 +12,10 @@ import io.netty.channel.ConnectTimeoutException;
 import mampang.validation.dto.MampangApiResponse;
 import mampang.validation.exception.JsException;
 
+//kalau ada yang gacocok sama responsenya bisa diubah disini, tinggal buat dto baru, limitationnya itu di JsException dia baru terima 3 parameter yaitu data, rc, rd
+//nanti tinggal override aja tiap methodnya
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class MampangExceptionHandler {
 
   @ExceptionHandler(JsException.class)
   public ResponseEntity<MampangApiResponse> handleAuthorizationException(JsException ex) {
