@@ -1,6 +1,27 @@
 # MAMPANG PROJECT
 
-Inspired by project Jakarta Validation, Mampang Validation is an add on for your spring boot application enabling consistent standardized response for your endpoints.
+Inspired by [The Apache Jakarta Project](https://jakarta.apache.org/), I think it would be fun to create a project with the name inspired by the area in Jakarta and let me introduce to you, The Mampang Project.
+
+## What Problem I am trying to solve?
+I am originally a front end developer, and it gets really frustrating for me whenever the backend developers give inconsistent responses.
+Until one day I got assigned to a backend project, and i realized in order to gives consistent responses, I have to code with this following pattern:
+```java
+ @PostMapping("/posts")
+ public ResponseEntity<ApiResponse> postData(@RequestBody RequestEntity   
+ request) {
+   try {
+     return service.postSomething()
+   } catch (Exception e) {
+     log.info("EXCEPTION: " + e.getMessage());
+     return ResponseEntity
+       .status(HttpStatus.INTERNAL_SERVER_ERROR)
+       .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+       .body(new ApiResponse(myErrorResponse));
+   }
+ }
+```
+The more endpoints I made, the more tedious it is to repeat the same task over and over.
+Until one day I got an idea to create a custom annotation to handle authorization, those idea leads me to create a full package that handle the exception by giving a consistent response.
 
 ## Features:
 - Automatic Error Response Exception Handler
