@@ -1,4 +1,4 @@
-# MAMPANG PROJECT
+# THE MAMPANG PROJECT
 
 Inspired by [The Apache Jakarta Project](https://jakarta.apache.org/), I think it would be fun to create a project with the name inspired by the area in Jakarta and let me introduce to you, The Mampang Project.
 
