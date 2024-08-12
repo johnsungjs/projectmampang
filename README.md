@@ -3,11 +3,13 @@
 Inspired by [The Apache Jakarta Project](https://jakarta.apache.org/), I think it would be fun to create a project with the name inspired by the area in Jakarta and let me introduce to you, The Mampang Project.
 
 ## What Problem I am trying to solve?
+
 I am originally a front end developer, and it gets really frustrating for me whenever the backend developers give inconsistent responses.
 Until one day I got assigned to a backend project, and i realized in order to gives consistent responses, I have to code with this following pattern:
+
 ```java
  @PostMapping("/posts")
- public ResponseEntity<ApiResponse> postData(@RequestBody RequestEntity   
+ public ResponseEntity<ApiResponse> postData(@RequestBody RequestEntity
  request) {
    try {
      return service.postSomething()
@@ -20,25 +22,30 @@ Until one day I got assigned to a backend project, and i realized in order to gi
    }
  }
 ```
+
 The more endpoints I made, the more tedious it is to repeat the same task over and over.
 Until one day I got an idea to create a custom annotation to handle authorization, those idea leads me to create a full package that handle the exception by giving a consistent response.
 
 ## Minimum Requirements
+
 - Java 17 or higher
 - Spring Boot version 3.3.2 or higher
 
 ## Features:
+
 - Automatic Error Response Exception Handler
 - Authorization null Checking with error message
 - @Requestbody null checking with error message
 - @Requestbody null checking for every field with error message
-Invalid URL endpoint with message
-Response Generator
+  Invalid URL endpoint with message
+  Response Generator
 - Webclient Component, refactor Spring Webflux, enable webclient call with simplified syntax, like webclient.post(url, reqbody, token)
 - Response Generator Component, simplified return of ResponseEntity
 
 ## Basic Concept:
+
 All the response generated will be based on this following class
+
 ```java
    public class MampangApiResponse {
     private Object data;
@@ -54,28 +61,32 @@ Inside your pom.xml:
 
 ```xml
    <repositories>
-     <id>github</id>
-     <url>https://mvn.pkg.github/johnsungjs/projectmampang</url>
-     <snapshots>
-       <enabled>true</enabled>
-     </snapshots>
+      <repository>
+        <id>github</id>
+        <url>https://mvn.pkg.github/johnsungjs/projectmampang</url>
+        <snapshots>
+        <enabled>true</enabled>
+        </snapshots>
+      </repository>
    </repositories>
 
 
-   <dependency>
+   <dependencies>
 	…
-     <groupId>org.projectmampang</groupId>
-     <artifactId>mampang</artifactId>
-     <version>1.0.5</version>
-   </dependency>
+     <dependency>
+        <groupId>org.projectmampang</groupId>
+        <artifactId>mampang</artifactId>
+        <version>1.0.5</version>
+     </dependency>
+   </dependencies>
 
 ```
 
 ## Full Example Usage
+
 For Example purpose, we are going to make a simple application with the requestbody of PersonRequest class
 
 ##### PersonRequest.java
-
 
 ```java
 @Getter
@@ -89,6 +100,7 @@ public class PersonRequest {
 ```
 
 ##### PersonController.java
+
 ```java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -151,39 +163,50 @@ public class PersonController {
 ```
 
 ## In Depth Explanation
+
 ### @JsAuthorization
+
 this annotation will validate the null “Authorization” in the header
+
 #### Case 1: Request with Header “Authorization”
+
 ##### Request:
+
 ```c
 curl --location 'localhost:8080/person/get/auth' \
 --header 'Authorization: 111111' \
 --data ''
 ```
+
 ##### Response:
+
 ```json
 {
-    "data": {
-        "name": "DummyPerson",
-        "hobby": "pingpong"
-    },
-    "rc": "00",
-    "rd": "SUCCESS GET PERSON"
+  "data": {
+    "name": "DummyPerson",
+    "hobby": "pingpong"
+  },
+  "rc": "00",
+  "rd": "SUCCESS GET PERSON"
 }
 ```
 
 #### Case 2: Request without Header “Authorization”
+
 ##### Request:
+
 ```c
 curl --location 'localhost:8080/person/get/auth' \
 --data ''
 ```
+
 ##### Response:
+
 ```json
 {
-    "data": null,
-    "rc": "01",
-    "rd": "AUTHORIZATION MUST NOT BE NULL"
+  "data": null,
+  "rc": "01",
+  "rd": "AUTHORIZATION MUST NOT BE NULL"
 }
 ```
 
@@ -192,7 +215,9 @@ curl --location 'localhost:8080/person/get/auth' \
 This annotation will validate request body and return error message whenever value inside request body is null, in this example we will use the PersonRequest.java class as the requestbody.
 
 #### Case 1: Request With Complete Body
+
 ##### Request:
+
 ```c
 curl --location 'localhost:8080/person/post' \
 --header 'Authorization: 111111' \
@@ -202,19 +227,22 @@ curl --location 'localhost:8080/person/post' \
    "hobby": "pingpong"
 }'
 ```
+
 ##### Response:
+
 ```json
 {
-    "data": {
-        "name": "john",
-        "hobby": "pingpong"
-    },
-    "rc": "00",
-    "rd": "SUCCESS GET PERSON"
+  "data": {
+    "name": "john",
+    "hobby": "pingpong"
+  },
+  "rc": "00",
+  "rd": "SUCCESS GET PERSON"
 }
 ```
 
 #### Case 2: Request With Uncomplete Body:
+
 ```c
 curl --location 'localhost:8080/person/post' \
 --header 'Authorization: 111111' \
@@ -223,28 +251,32 @@ curl --location 'localhost:8080/person/post' \
    "hobby": "pingpong"
 }'
 ```
+
 ##### Response:
+
 ```json
 {
-    "data": null,
-    "rc": "02",
-    "rd": "NULL VALUE IN THIS FOLLOWING FIELD => name"
+  "data": null,
+  "rc": "02",
+  "rd": "NULL VALUE IN THIS FOLLOWING FIELD => name"
 }
 ```
 
-
 #### Case 3: Request Without body payload:
+
 ```c
 curl --location --request POST 'localhost:8080/person/post' \
 --header 'Authorization: 111111' \
 --data ''
 ```
+
 ##### Response:
+
 ```json
 {
-    "data": null,
-    "rc": "98",
-    "rd": "BAD REQUEST, POSSIBILITY NULL REQUEST BODY OR NULL REQUEST PARAM"
+  "data": null,
+  "rc": "98",
+  "rd": "BAD REQUEST, POSSIBILITY NULL REQUEST BODY OR NULL REQUEST PARAM"
 }
 ```
 
@@ -254,6 +286,7 @@ Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
 ## Further Question
+
 If you have any question, feel free to dm me via [linkedin](https://linkedin.com/in/johnsungjs).
 
 ## License
