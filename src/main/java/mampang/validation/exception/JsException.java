@@ -12,7 +12,7 @@ import lombok.Getter;
  * Nanti otomatis tergenerate response
  * 
  * @author John Sung
- * @see www.johnsungjs.vercel.app
+ * @see www.github.com/johnsungjs/projectmampang
  * 
  */
 @AllArgsConstructor

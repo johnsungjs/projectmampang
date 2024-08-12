@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * penjagaan
  * 
  * @author John Sung
- * @see www.johnsungjs.vercel.app
+ * @see www.github.com/johnsungjs/projectmampang
  * 
  */
 @Target(ElementType.METHOD)

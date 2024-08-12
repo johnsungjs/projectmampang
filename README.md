@@ -23,6 +23,10 @@ Until one day I got assigned to a backend project, and i realized in order to gi
 The more endpoints I made, the more tedious it is to repeat the same task over and over.
 Until one day I got an idea to create a custom annotation to handle authorization, those idea leads me to create a full package that handle the exception by giving a consistent response.
 
+## Minimum Requirements
+- Java 17 or higher
+- Spring Boot version 3.3.2 or higher
+
 ## Features:
 - Automatic Error Response Exception Handler
 - Authorization null Checking with error message

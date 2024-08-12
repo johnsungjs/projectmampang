@@ -14,7 +14,7 @@ import mampang.validation.exception.JsException;
  * LOGIC ANNOTATION @JsAuthorization
  * 
  * @author John Sung
- * @see www.johnsungjs.vercel.app
+ * @see www.github.com/johnsungjs/projectmampang
  * 
  */
 @Aspect
