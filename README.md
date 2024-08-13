@@ -60,7 +60,7 @@ All the response generated will be based on this following class
 Inside your pom.xml:
 
 ```xml
-   	<repositories>
+<repositories>
       <repository>
         <id>github</id>
         <url>https://maven.pkg.github.com/johnsungjs/projectmampang</url>
@@ -71,7 +71,7 @@ Inside your pom.xml:
           <enabled>true</enabled>
         </snapshots>
       </repository>
- 	  </repositories>
+</repositories>
 
 
    <dependencies>
