@@ -11,6 +11,10 @@ import lombok.Getter;
  * Usage: Tinggal throw new JsException(rc, rd, httpStatus), 
  * Nanti otomatis tergenerate response
  * 
+ * @param rc = Your Custom Response Code
+ * @param rd = Your Custom Response Description
+ * @param httpStatus = HTTP Status
+ * 
  * @author John Sung
  * @see www.github.com/johnsungjs/projectmampang
  * 

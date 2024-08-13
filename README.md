@@ -60,15 +60,18 @@ All the response generated will be based on this following class
 Inside your pom.xml:
 
 ```xml
-   <repositories>
+   	<repositories>
       <repository>
         <id>github</id>
-        <url>https://mvn.pkg.github/johnsungjs/projectmampang</url>
+        <url>https://maven.pkg.github.com/johnsungjs/projectmampang</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
         <snapshots>
-        <enabled>true</enabled>
+          <enabled>true</enabled>
         </snapshots>
       </repository>
-   </repositories>
+ 	  </repositories>
 
 
    <dependencies>

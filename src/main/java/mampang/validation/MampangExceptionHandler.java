@@ -1,5 +1,8 @@
 package mampang.validation;
 
+import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,37 +20,53 @@ import mampang.validation.exception.JsException;
 @ControllerAdvice
 public class MampangExceptionHandler {
 
-  @ExceptionHandler(JsException.class)
-  public ResponseEntity<MampangApiResponse> handleAuthorizationException(JsException ex) {
-    MampangApiResponse response = new MampangApiResponse(null, ex.getRc(), ex.getRd());
-    return ResponseEntity
-        .status(ex.getHttpStatus())
-        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .body(response);
-  }
+    @ExceptionHandler(JsException.class)
+    public ResponseEntity<MampangApiResponse> handleAuthorizationException(JsException ex) {
+        MampangApiResponse response = new MampangApiResponse(null, ex.getRc(), ex.getRd());
+        return ResponseEntity
+                .status(ex.getHttpStatus())
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(response);
+    }
 
-  @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<MampangApiResponse> handleBadRequest() {
-    return ResponseEntity
-        .status(HttpStatus.BAD_REQUEST)
-        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .body(new MampangApiResponse(null, "98", "BAD REQUEST, POSSIBILITY NULL REQUEST BODY OR NULL REQUEST PARAM"));
-  }
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<MampangApiResponse> handleBadRequest(HttpMessageNotReadableException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(new MampangApiResponse(null, "95", "HttpMessageNotReadableException: " + e.getMessage()));
+    }
 
-  @ExceptionHandler(ConnectTimeoutException.class)
-  public ResponseEntity<MampangApiResponse> handleConnectionTimeout() {
-    return ResponseEntity
-        .status(HttpStatus.BAD_REQUEST)
-        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .body(new MampangApiResponse(null, "97",
-            "CONNECTION TIMEOUT, PLEASE CHECK YOUR CONNECTION SETTINGS"));
-  }
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<MampangApiResponse> handleSqlException(SQLException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(new MampangApiResponse(null, "96", "SQLException: " + e.getMessage()));
+    }
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<MampangApiResponse> handleException() {
-    return ResponseEntity
-        .status(HttpStatus.BAD_REQUEST)
-        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .body(new MampangApiResponse(null, "98", "NO PATH FOUND, PLEASE CHECK YOUR API URL"));
-  }
+    @ExceptionHandler(SQLSyntaxErrorException.class)
+    public ResponseEntity<MampangApiResponse> handleSqlSyntaxError(SQLSyntaxErrorException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(new MampangApiResponse(null, "97", "SQLSyntaxErrorException: " + e.getMessage()));
+    }
+
+    @ExceptionHandler(ConnectTimeoutException.class)
+    public ResponseEntity<MampangApiResponse> handleConnectionTimeout(ConnectTimeoutException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(new MampangApiResponse(null, "98",
+                        "ConnectTimeoutException: " + e.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MampangApiResponse> handleException(Exception e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(new MampangApiResponse(null, "99", "UNHANDLED EXCEPTION" + e.getMessage()));
+    }
 }
