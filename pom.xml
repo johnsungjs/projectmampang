@@ -30,12 +30,12 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<distributionManagement>
+	<!-- <distributionManagement>
 		<repository>
 	    <id>jitpack.io</id>
 	    <url>https://jitpack.io</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement> -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
