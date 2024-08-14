@@ -63,7 +63,7 @@ Inside your pom.xml:
   <repositories>
     <repository>
       <id>github</id>
-      <url>https://public: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@maven.pkg.github.com/johnsungjs/projectmampang</url>
+      <url>https://maven.pkg.github.com/johnsungjs/projectmampang</url>
       <releases>
         <enabled>true</enabled>
       </releases>
