@@ -7,7 +7,7 @@
     <server>
       <id>github</id>
       <username>johnsungjs</username>
-      <password>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</password>
+      <password>SECRET</password>
     </server>
   </servers>
 </settings>
