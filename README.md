@@ -63,9 +63,9 @@ Inside your pom.xml:
   <repositories>
     <repository>
       <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-   </repository>
-	</repositories>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
 
    <dependencies>
