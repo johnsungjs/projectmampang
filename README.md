@@ -61,26 +61,20 @@ Inside your pom.xml:
 
 ```xml
   <repositories>
-    <repository>
-      <id>github</id>
-      <url>https://maven.pkg.github.com/johnsungjs/projectmampang</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 
    <dependencies>
 	…
      <dependency>
-        <groupId>org.projectmampang</groupId>
-        <artifactId>mampang</artifactId>
-        <version>1.0.6</version>
-     </dependency>
+			<groupId>com.github.johnsungjs</groupId>
+			<artifactId>projectmampang</artifactId>
+			<version>1.0.6</version>
+		</dependency>
    </dependencies>
 
 ```
