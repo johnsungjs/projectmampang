@@ -61,21 +61,21 @@ Inside your pom.xml:
 
 ```xml
   <repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
+    <repository>
+      <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+   </repository>
 	</repositories>
 
 
    <dependencies>
 	…
-     <dependency>
-			<groupId>com.github.johnsungjs</groupId>
-			<artifactId>projectmampang</artifactId>
-			<version>1.0.6</version>
-		</dependency>
-   </dependencies>
+   <dependency>
+      <groupId>com.github.johnsungjs</groupId>
+      <artifactId>projectmampang</artifactId>
+      <version>1.0.6</version>
+   </dependency>
+  </dependencies>
 
 ```
 
